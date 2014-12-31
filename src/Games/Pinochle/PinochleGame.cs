@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace Games
+namespace Games.Pinochle
 {
-	public sealed class Pinochle : Game
+	public sealed class PinochleGame : Game
 	{
-		public Pinochle(ICollection<Player> players)
+		public PinochleGame(ICollection<Player> players)
 		{
 			m_players = players;
 			DealDeck();
@@ -20,7 +20,7 @@ namespace Games
 		private static Deck CreateDeck()
 		{
 			List<Card> cards = new List<Card>();
-			foreach (Suite suite in Enum.GetValues(typeof(Suite)))
+			foreach (Suit suite in s_suits)
 			{
 				for (uint value = 9; value < 15; value++)
 				{
@@ -36,6 +36,7 @@ namespace Games
 		private void DealDeck()
 		{
 			Deck deck = CreateDeck();
+			deck.Shuffle();
 			deck.Shuffle();
 
 			if (m_players.Count == 4)
@@ -54,7 +55,7 @@ namespace Games
 		private ICollection<Card> SortHand(IEnumerable<Card> hand)
 		{
 			return hand
-				.GroupBy(card => card.Suite)
+				.GroupBy(card => card.Suit)
 				.OrderBy(group => group.Key)
 				.Select(group => group.OrderBy(card => card.Value))
 				.SelectMany(x => x)
@@ -63,5 +64,6 @@ namespace Games
 
 		readonly ICollection<Player> m_players;
 		ICollection<Card> m_kitty;
+		static readonly ReadOnlyCollection<Suit> s_suits = new List<Suit> { Suit.Club, Suit.Heart, Suit.Spade, Suit.Diamond }.AsReadOnly();
 	}
 }

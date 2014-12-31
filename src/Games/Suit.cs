@@ -1,7 +1,7 @@
 ﻿
 namespace Games
 {
-	public enum Suite
+	public enum Suit
 	{
 		Club,
 		Heart,

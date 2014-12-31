@@ -3,18 +3,23 @@ namespace Games
 {
 	public sealed class Card
 	{
-		public Card(Suite suite, FaceValue faceValue, double value)
+		public Card(Suit suit, FaceValue faceValue)
+			: this(suit, faceValue, (int) faceValue)
 		{
-			m_suite = suite;
+		}
+
+		public Card(Suit suit, FaceValue faceValue, double value)
+		{
+			m_suit = suit;
 			m_faceValue = faceValue;
 			m_value = value;
 		}
 
-		public Suite Suite { get { return m_suite; } }
+		public Suit Suit { get { return m_suit; } }
 		public FaceValue FaceValue { get { return m_faceValue; } }
 		public double Value { get { return m_value; } }
 
-		readonly Suite m_suite;
+		readonly Suit m_suit;
 		readonly FaceValue m_faceValue;
 		readonly double m_value;
 	}

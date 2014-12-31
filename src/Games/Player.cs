@@ -4,9 +4,10 @@ namespace Games
 {
 	public sealed class Player
 	{
-		public Player(string name)
+		public Player(string name, PlayerKind kind)
 		{
 			m_name = name;
+			m_kind = kind;
 		}
 
 		public string Name
@@ -19,12 +20,18 @@ namespace Games
 			get { return m_hand; }
 		}
 
+		public PlayerKind Kind
+		{
+			get { return m_kind; }
+		}
+
 		public void SetHand(ICollection<Card> hand)
 		{
 			m_hand = hand;
 		}
 
 		readonly string m_name;
+		readonly PlayerKind m_kind;
 		ICollection<Card> m_hand;
 	}
 }
